@@ -1,0 +1,136 @@
+body{
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+*::selection{
+    background-color: #000;
+    color:  #000;
+}
+::-webkit-scrollbar{
+    height: .5rem;
+    width: 1rem;
+}
+::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #000;
+}
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+.header{
+    position: sticky;
+    top: 0;left: 0;right: 0;
+    background-color: rgb(60, 141, 233);
+    box-sizing:  #000;
+    z-index: 1000;
+    padding: 5px 32px; 
+   
+}
+.header .flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.header .flex .logo{
+    font-size: 2.5rem;
+    color:  #fff;
+    text-decoration: none;
+}
+.header .flex .logo span{
+    color: #fff;
+}
+.header .flex .navber a{
+    margin: 0 1rem;
+    font-size: 2rem;
+    color:  #fff;
+    text-decoration: none;
+}
+.header .flex .navber a:hover{
+    color: rgb(160, 160, 160);
+    text-decoration: underline;
+
+}
+.header .flex .icons div{
+    margin-left: 1.7rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color:  #fff;
+}
+.header .flex .icons div:hover{
+    color: rgb(222, 220, 220);
+}
+.header .flex .profile{
+    position: absolute;
+    top: 120%;right: 2rem;
+    background-color:  #000;
+    border-radius: .5rem;
+    box-sizing:  #000;
+    border: var(--border);
+    padding: 2rem;
+    width: 30rem;
+    padding-top: 1.2rem;
+    display: none;
+    animation: fadeIn .2s linear;
+}       
+.header .flex .profile.active{
+    display: inline-block;
+}
+.header .flex .profile p{
+    text-align: center;
+    color:  #fff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#menu-btn{
+    display: none;
+}
+.imgs{
+    height:700px;
+}
+
+
+
+.test {
+    position: relative;
+    width: 100%;
+    height: 60rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .test:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 53.5%;
+    height: 60rem;
+    background: rgba(8, 8, 8, 0.365);
+  }
+  .text {
+    font-family: Arial;
+    font-size: 2em;
+    color: white;
+    text-shadow: 0.1em 0.1em 0.5em rgba(0,0,0,0.5);
+    margin: 0;
+    position: absolute;
+  }

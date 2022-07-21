@@ -1,0 +1,97 @@
+body{
+    background-color: #292727 !important;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+.logins{
+    max-width: 500px;
+    background-color: #1A2226;
+    height: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.logins .logo{
+    padding: 30px 0 0 10px;
+    text-align: center;
+}
+
+.logins .logo i{
+    color: #0DB8DE;
+    font-size: 100px;
+}
+
+.logins .logo h1{
+    color: #fff;
+    font-size: 30px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.logins .logo p{
+    color: #0DB8DE;
+    font-size: 20px;
+}
+.logins form .box{
+    margin-top: 30px;
+}
+.logins form .box label{
+    margin-top: 10px;
+    margin-left: 50px;
+    display: block;
+    color: #a3a3a3ee;
+}
+.logins form .box input{
+    color: #0D88DE;
+    margin: 4px 50px;
+    width: 80%;
+    border: none;
+    padding: 15px;
+    background-color: #044b5b;
+    border-bottom: 1px solid #0DB8DE;
+}
+.logins form .box input:focus{
+    color: #0DB8DE;
+    outline: none;
+    box-shadow:0 0 0  ;
+}
+
+.logins .btm{
+    margin-top: 20px;
+    margin-left: 370px;
+}
+.logins .btm .btn{
+    border: 1px solid #0DB8DE;
+    color: #0DB8DE;
+    background-color: #1A2226;
+    padding: 10px 30px;
+    font-size: 15px;
+}
+.logins .btm .btn:hover{
+    background-color: #0DB8DE;
+    color: #fff;
+}
+.left{
+    padding-left: 3px; 
+    padding-top: 10px;
+}
+.left i{
+    font-size: 15px;
+    color: #0DB8DE;
+}
+.left a{
+    font-size: 15px;
+    color: #0DB8DE;
+}
+.right{
+    padding-left: 375px;
+    padding-top:10px;
+}
+.right i{
+    font-size: 15px;
+    color: #0DB8DE;
+}
+.right a{
+    font-size: 15px;
+    color: #0DB8DE;
+}

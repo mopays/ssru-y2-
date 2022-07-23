@@ -5,13 +5,11 @@
                 <a href="">home</a>
                 <a href="">products</a>
                 <a href="">orders</a>
-                <a href="">admins</a>
-                <a href="">users</a>
                 <a href="">messages</a>
             </nav>
             <div class="icons">
-                <div class="fa-solid fa-magnifying-glass"></div>
-                <div class="fa-solid fa-cart-shopping">()</div>
+                <a href=""><div class="fa-solid fa-magnifying-glass"></div></a>
+                <a href=""><div class="fa-solid fa-cart-shopping">(0)</div></a>
                 
                
                 <div class="fas fa-user" id="user-btn"></div>

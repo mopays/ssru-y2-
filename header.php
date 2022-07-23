@@ -1,6 +1,6 @@
 <header class="header">
         <sections class="flex">
-            <a href="" class="logo">Admin<span>Panel</span></a>
+            <a href="" class="logo">ร้าน<span>ข้าวต้มหัวปลาสามเสน</span></a>
             <nav class="navber">
                 <a href="">home</a>
                 <a href="">products</a>
@@ -20,7 +20,7 @@
             <div class="profile">
               
                 <p></p>
-                <a href="" class="option-btn">update profile</a>
+                <a href="" class="btn">update profile</a>
                 <div class="flex-btn">
                     <a href="" class="option-btn">register</a>
                     <a href="" class="option-btn">login</a>

@@ -1,3 +1,6 @@
+<?php 
+    require_once('assets/config/connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +10,10 @@
 
 
     <!-- cdn -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.1/swiper-bundle.css" />
     <link rel="stylesheet" href="assets/css/style.css">
 
   
@@ -31,7 +34,7 @@
 
 
         <section class="category">
-            <h1 class="heading">shop by category</h1>
+            <h1 class="heading">หมวดหมู่สินค้า</h1>
             <div class="swiper category-slider">
                 <div class="swiper-wrapper">
 
@@ -40,31 +43,85 @@
                         <h3>น้ำดื่ม</h3>
                     </a>
                     <a href="category.php?category=tv" class="swiper-slide slide">
-                    <i class="fa-solid fa-glass-water fa-2xl"></i>
+                    <i class="fa-solid fa-plate-wheat fa-2xl"></i>
                         <h3>ยำ</h3>
                     </a>
                     <a href="category.php?category=camera" class="swiper-slide slide">
-                    <i class="fa-duotone fa-bowl-rice fa-2xl"></i>
+                    <i class="fa-solid fa-bowl-rice fa-2xl"></i>
                         <h3>ข้าวต้ม</h3>
                     </a>
                     <a href="category.php?category=mouse" class="swiper-slide slide">
-                    <i class="fa-solid fa-pot-food"></i>
+                    <i class="fa-solid fa-plate-wheat fa-2xl"></i>
                         <h3>เกาเหลา</h3>
                     </a>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
-        </section>
+        </section>  
 
+        <!-- products -->
 
+        <section class="home-products">
+            <h1 class="heading">หมวดหมู่สินค้า</h1>
+            <div class="swiper products-slider">
+                <div class="swiper-wrapper">
+                <?php
+                    $select = $db->prepare("SELECT * FROM `products` LIMIT 6 ");
+                    $select->execute();
+                    while($row = $select->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                   <form action="" method="post" class="swiper-slide slide">
+                        <input type="hidden" name="pid" value="">
+                        <input type="hidden" name="name" value="">
+                        <input type="hidden" name="price" value="">
+                        <input type="hidden" name="image" value="<">
+                        <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
+                        <a href="quick_view.php?pid=" class="fas fa-eye"></a>
+                        <img src="assets/image/menu/<?php echo $row['image']?>" alt="">
+                        <div class="name"><?php echo $row['name']?></div>
+                        <div class="flex">
+                            <div class="price">  20<span>฿</span></div>
+                            <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                        </div>
+                        <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+                    </form>
+                    <?php } ?>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>  
        
+
+
+
+    <?php include_once('footer.php')?>
+    
        
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
      
-      <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.1/swiper-bundle.min.js"></script>
+      
       <script src="assets/script/script.js"></script>
      <script>
-
+        var swiper = new Swiper(".products-slider", {
+            loop:true,
+            spaceBetween: 20,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable:true,
+            },
+            breakpoints: {
+                550: {
+                    slidesPerView: 2,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
         var swiper = new Swiper(".category-slider", {
             loop:true,
             spaceBetween: 20,
@@ -87,6 +144,9 @@
                 },
             },
         });
+
+
+
      </script>
 </body>
 </html>

@@ -1,14 +1,13 @@
 <header class="header">
         <sections class="flex">
-            <a href="" class="logo">ร้าน<span>ข้าวต้มหัวปลาสามเสน</span></a>
+            <a href="home.php" class="logo">ร้าน<span>ข้าวต้มหัวปลาสามเสน</span></a>
             <nav class="navber">
-                <a href="">home</a>
+                <a href="home.php">home</a>
                 <a href="">products</a>
                 <a href="">orders</a>
-                <a href="">messages</a>
+                <a href="contact.php">messages</a>
             </nav>
             <div class="icons">
-                <a href=""><div class="fa-solid fa-magnifying-glass"></div></a>
                 <a href=""><div class="fa-solid fa-cart-shopping">(0)</div></a>
                 
                

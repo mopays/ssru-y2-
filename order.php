@@ -67,7 +67,7 @@
                 <?php 
                 }
                 }else{
-                     echo "<p style='text-align:center;color:red;font-size:4rem;'>no product add</p>";
+                     echo "<p style='text-align:center;color:red;font-size:4rem;'>no order </p>";
                 }
                 
                 ?>

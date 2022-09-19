@@ -139,7 +139,7 @@
 
         <section class="home-products">
             <h1 class="heading" >ยำ</h1>
-            <div id="yum" class="swiper products-slider ">
+            <div id="ยำ" class="swiper products-slider ">
                 <div class="swiper-wrapper">
                 <?php
                     $select = $db->prepare("SELECT * FROM `products` WHERE category = ?");

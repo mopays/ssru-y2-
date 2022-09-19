@@ -95,3 +95,20 @@ body{
     font-size: 15px;
     color: #0DB8DE;
 }
+@media (max-width:450px){
+    .logins{
+        max-width: 250px;
+        height: 670px;
+    }
+    .logins form .box input {
+        width: 62%;
+    }
+    
+    .lohin .btm{
+        margin-left: 73px;
+    }
+    .right {
+        padding-left: 120px;
+    }
+
+}

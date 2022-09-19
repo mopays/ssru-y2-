@@ -73,7 +73,7 @@
                       
         <section class="logins" style="height: 800px;margin-top: 50px;">
             <div class="left">
-                <a href="login.php"><i class="fa-solid fa-arrow-left"></i>back to login</a>
+                <a href="index.php"><i class="fa-solid fa-arrow-left"></i>back to login</a>
             </div>
            <div class="logo">
             <i class="fa-solid fa-fish"></i>

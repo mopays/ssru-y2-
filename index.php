@@ -58,25 +58,25 @@
             </div>
         <?php } ?>
 
-        <section class="logins">
-            <div class="right">
+        <section class="logins cal-sm-4">
+            <div class="right cal-sm-4">
                 <a href="register.php">back to register<i class="fa-solid fa-arrow-right"></i></a>
             </div>
-           <div class="logo">
+           <div class="logo cal-sm-4">
             <i class="fa-solid fa-fish"></i>
             <h1>ข้าวต้มหัวปลาสามเสน</h1>
             <p>เข้าสู่ระบบ</p>
            </div>
            <form action="" method="post">
-            <div class="box">
+            <div class="box cal-sm-4">
                 <label for="username">username or email</label>
                 <input type="text" name="username" >
             </div>
-            <div class="box">
+            <div class="box cal-sm-4">
                 <label for="password">password</label>
                 <input type="password" name="password" >
             </div>
-            <div class="btm">
+            <div class="btm cal-sm-4">
                 <input class="btn" type="submit" name="login">login</input>
             </div>
         </form>

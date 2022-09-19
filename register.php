@@ -18,7 +18,7 @@
             $error[] = 'please confirm password';
         }else{
             $select = $db->prepare("SELECT username,email FROM `login` WHERE username = ? OR email = ?  ");
-            $select->execute([$email]);
+            $select->execute([$username,$email]);
             $row = $select->fetch(PDO::FETCH_ASSOC);
             if($email != $row['email']){
                 if($username != $row['username']){
@@ -27,9 +27,10 @@
                             $insert = $db->prepare("INSERT INTO `login` (`username`, `email`, `password`) VALUES ( ?, ?, ?)");
                             $insert->execute([$username, $email, $haspassword]);
                             $insertMsg[] = 'สมัครเส็จสิ้น';
-                            header('refresh:1;login.php');   
+                            header('refresh:1;index.php');   
                         }else{
-                            $error[] = 'รหัสผ่านต้องมี มากกว่า 6ตัว';
+                            $error[] = 'รหัสผ่าน
+                            ต้องมี มากกว่า 6ตัว';
                         }
                     }else{
                         $error[] = 'รหัสผ่านไม่ตรงกัน ลองใหม่อีกครั้ง';

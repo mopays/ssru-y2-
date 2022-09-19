@@ -1,6 +1,32 @@
  <?php 
+
     require_once('assets/config/connect.php');
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location:index.php');
+    }
+    
+    $id = $_SESSION['user'];
+
+    if(isset($_GET['delete'])){
+        $delete_id = $_GET['delete'];
+        $delete_cart_item = $db->prepare("DELETE FROM `cart` WHERE pid = ?");
+        $delete_cart_item->execute([$delete_id]);
+        header('location:cart.php');
+    }
+    if(isset($_GET['delete_all'])){
+        $delete_cart_item = $db->prepare("DELETE FROM `cart` WHERE user_id = ?");
+        $delete_cart_item->execute([$id]);
+        header('locaiton:caart.php');
+    }
+    if(isset($_POST['update_p_qty'])){
+        $cart_id  = $_POST['cart_id'];
+        $p_qty = $_POST['p_qty'];
+        $update_p_qty = $db->prepare("UPDATE `cart` SET quantity = ? WHERE pid = ?");
+        $update_p_qty->execute([$p_qty, $cart_id]);
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +43,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
   
-    <title>Document</title>
+    <title>Cart</title>
 </head>
 <body>
 
@@ -41,29 +67,47 @@
 
         <div class="box-container">
          
+            <?php
+                $gran_total = 0;
+                $select_cart = $db->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+                $select_cart->execute([$id]);
+                
+                while($row = $select_cart->fetch(PDO::FETCH_ASSOC)){
+                    if($select_cart->rowCount() > 0){
+                
+               
+            ?>
             <form action=""  method="post" class="box">
-                <a href="cart.php?delete=" class="fas fa-times" onclick="return confirm('do you srue you want to delete')"></a>
-                <img src="assets/upload_image/" alt="">
-                <div class="name"></div>
-                <div class="price"><?php ?> ฿ </div>
-                <input type="hidden" name="cart_id" value="<?php ?>">
-              
+                <a href="cart.php?delete=<?php echo $row['pid']?>" name="delete" class="fas fa-times" onclick="return confirm('do you srue you want to delete')"></a>
+                <img src="assets/image/menu/<?php echo $row['imag']?>" alt="">
+                <div class="name"><?php echo $row['pname']?></div>
+                <div class="price"><?php echo $row['pprice']?> ฿ </div>
+                <input type="hidden" name="cart_id" value="<?php echo $row['pid'] ?>">
                <div class="flex-btn">
-                    <input type="number" min="1" value="<?php  ?>" class="p_qty" name="p_qty">
+                    <input type="number" min="1" value="<?php echo $row['quantity'] ?>" class="p_qty" name="p_qty">
                     <input style="margin-top:0;" type="submit" value="update" name="update_p_qty" class="option-btn">
                </div>
-                <div class="sub-total">sub total : <span><?php  #$sub_total = (['price'] * ['quantity']) ?> ฿</span></div>
+                <div class="sub-total">sub total : <span><?php echo  $sub_total = ($row['pprice'] * $row['quantity'])?> ฿</span></div>
             </form>
-            <?php #gran_total += sub_total; ?>
+    
+            <?php 
+            $gran_total += $sub_total;     
+                }else{
+                    echo "<p style='text-align:center;color:red;font-size:4rem;'>no product add</p>";
+                }
+            }
+         ?>
+           
          
         </div>
 
         <div class="cart-total">
-                <p>gran total : <span><?php #echo $gran_total ?> ฿</span></p>
-                <a href="product.php" class="option-btn">continue shopping</a>
-                <a href="cart.php?delete_all" class="delete-btn <?php #echo ($gran_total > 1)? '': 'disabled'; ?>" >Delete all</a>
-                <a href="checkout.php" class="btn <?php #echo ($gran_total > 1)? '': 'disabled'; ?>">proceed to checkout</a>
+                <p>gran total : <span><?php echo $gran_total ?> ฿</span></p>
+                <a href="home.php" class="option-btn">continue shopping</a>
+                <a href="cart.php?delete_all" class="delete-btn <?php echo ($gran_total > 1)? '': 'disabled'; ?>" >Delete all</a>
+                <a href="checkout.php" class="btn <?php echo ($gran_total > 1)? '': 'disabled'; ?>">proceed to checkout</a>
         </div>
+     
      </section>
 
     

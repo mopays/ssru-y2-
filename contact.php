@@ -1,37 +1,32 @@
 <?php
     require_once('assets/config/connect.php');
-
     session_start();
+    if(!isset($_SESSION['user'])){
+        header('location:index.php');
+    }
+    $id = $_SESSION['user'];
+ if(isset($_POST['send'])){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $number = $_POST['number'];
+    $message = $_POST['msg'];
+    
 
-    #if(isset($_SESSION['user_id'])){
-       # $user_id = $_SESSION['user_id'];
-    #}else{
-        #$user_id = '';
-        
-    #}
-    #if(isset($_POST['send'])){
-       #$name = $_POST['name'];
-       #$name = filter_var($name, FILTER_SANITIZE_STRING);
-        #$email = $_POST['email'];
-        #$email = filter_var($email, FILTER_SANITIZE_STRING);
-        #$number = $_POST['number'];
-        #$number = filter_var($number, FILTER_SANITIZE_STRING);
-        #$msg = $_POST['msg'];
-        #$msg = filter_var($msg, FILTER_SANITIZE_STRING);
-
-        #$select_message = $db->prepare("SELECT * FROM `messages` WHERE name = ? AND email = ? AND number = ? AND message = ? ");
-        #$select_message->execute([$name, $email, $number, $msg]);
-
-        #if($select_message->rowCount() > 0){
-           # $message[] =  ' message already send';
-        #}else{
-            #$insert_msg = $db->prepare("INSERT INTO `messages`(user_id, name, email, number, message) VALUES(?,?,?,?,?)");
-            #$insert_msg->execute([$user_id, $name, $email, $number, $msg]);
-
-
-            #$message[] = 'sent message successfully';
-        #}
-    #}
+    if(empty($name)){
+        $error[] = 'please enter your name';
+    }else if(empty($email)){
+        $error[] = 'please enter your email';
+    }else if(empty($number)){
+        $error[] = 'please enter your number';
+    }else if(empty($message)){
+        $error[] = 'please enter your message';
+    }else{
+        $insert_msg = $db->prepare("INSERT INTO message (user_id,name,email,number,message) VALUES(?,?,?,?,?)");
+        $insert_msg->execute([$id,$name,$email,$number,$message]);
+        $insert_success = 'insert success';
+    }
+   
+ }
 
 
 ?>  
@@ -52,6 +47,18 @@
 </head>
 <body>
 <?php include_once('header.php') ?>
+    <?php if(isset($error)){
+        foreach($error as $error){ ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $error ?>
+        </div>
+    <?php }} ?>
+
+    <?php if(isset($insert_success)){ ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $insert_success ?>
+        </div>
+    <?php } ?>
 
 <div class="contact">
     <form action=""method="post">

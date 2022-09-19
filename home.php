@@ -1,5 +1,25 @@
 <?php 
     require_once('assets/config/connect.php');
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location:index.php');
+    }
+    $id = $_SESSION['user'];
+	
+
+        if(isset($_POST['add_to_cart'])){
+            $pname = $_POST['name'];
+            $pprice = $_POST['price'];
+            $img = $_POST['image'];
+            $quantity = 1;
+            
+            $insert = $db->prepare("INSERT INTO cart(pname, pprice, imag, quantity,user_id) VALUES(?,?,?,?,?)");
+            $insert->execute([$pname, $pprice, $img, $quantity, $id]);
+            header('refresh:1;cart.php');
+          }
+
+    
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +37,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
   
-    <title>Document</title>
+    <title>Home</title>
 </head>
 <body>
 
@@ -38,19 +58,19 @@
             <div class="swiper category-slider">
                 <div class="swiper-wrapper">
 
-                    <a href="category.php?category=laptop" class="swiper-slide slide" >
+                    <a href="#เครื่องดื่ม" onclick="window.location.href='#เครื่องดื่ม'"; class="swiper-slide slide" >
                         <i class="fa-solid fa-glass-water fa-2xl"></i>
-                        <h3>น้ำดื่ม</h3>
+                        <h3>เครื่องดื่ม</h3>
                     </a>
-                    <a href="category.php?category=tv" class="swiper-slide slide">
+                    <a href="#ยำ" onclick="window.location.href='#ยำ'"  class="swiper-slide slide">
                     <i class="fa-solid fa-plate-wheat fa-2xl"></i>
                         <h3>ยำ</h3>
                     </a>
-                    <a href="category.php?category=camera" class="swiper-slide slide">
+                    <a href="#ข้าวต้ม" onclick="window.location.href='#ข้าวต้ม'"  class="swiper-slide slide">
                     <i class="fa-solid fa-bowl-rice fa-2xl"></i>
                         <h3>ข้าวต้ม</h3>
                     </a>
-                    <a href="category.php?category=mouse" class="swiper-slide slide">
+                    <a href="#เกาเหลา"  onclick="window.location.href='#เกาเหลา'";  class="swiper-slide slide">
                     <i class="fa-solid fa-plate-wheat fa-2xl"></i>
                         <h3>เกาเหลา</h3>
                     </a>
@@ -60,21 +80,105 @@
         </section>  
 
         <!-- products -->
-
+        <h1 class="heading">หมวดหมู่สินค้า</h1>
         <section class="home-products">
-            <h1 class="heading">หมวดหมู่สินค้า</h1>
-            <div class="swiper products-slider">
+            <h1 class="heading"id="ข้าวต้ม" >ข้าวต้ม</h1>
+            <div  class="swiper products-slider ">
                 <div class="swiper-wrapper">
                 <?php
-                    $select = $db->prepare("SELECT * FROM `products` LIMIT 6 ");
-                    $select->execute();
+                    $select = $db->prepare("SELECT * FROM `products` WHERE category = ?");
+                    $select->execute(['ข้าวต้ม']);
                     while($row = $select->fetch(PDO::FETCH_ASSOC)){
                 ?>
                    <form action="" method="post" class="swiper-slide slide">
-                        <input type="hidden" name="pid" value="">
-                        <input type="hidden" name="name" value="">
-                        <input type="hidden" name="price" value="">
-                        <input type="hidden" name="image" value="<">
+                        <input type="hidden" name="pid" value="<?php echo $row['pid'];?>">
+                        <input type="hidden" name="name" value="<?php echo $row['name'];?>">
+                        <input type="hidden" name="price" value="<?php echo $row['price'];?>">
+                        <input type="hidden" name="image" value="<?php echo $row['image'];?>">
+                        <img src="assets/image/menu/<?php echo $row['image']?>" alt="">
+                        <div class="name"><?php echo $row['name']?></div>
+                        <div class="flex">
+                            <div class="price"> <?php echo $row['price']?><span>฿</span></div>
+                            <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                        </div>
+                        <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+                    </form>
+                    <?php } ?>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>  
+
+        <section class="home-products">
+            <h1 class="heading" >เครื่องดื่ม</h1>
+            <div id="เครื่องดื่ม" class="swiper products-slider ">
+                <div class="swiper-wrapper">
+                <?php
+                    $select = $db->prepare("SELECT * FROM `products` WHERE category = ?");
+                    $select->execute(['เครื่องดื่ม']);
+                    while($row = $select->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                   <form action="" method="post" class="swiper-slide slide">
+                        <input type="hidden" name="pid" value="<?php echo $row['pid'];?>">
+                        <input type="hidden" name="name" value="<?php echo $row['name'];?>">
+                        <input type="hidden" name="price" value="<?php echo $row['price'];?>">
+                        <input type="hidden" name="image" value="<?php echo $row['image'];?>">
+                        <img src="assets/image/menu/<?php echo $row['image']?>" alt="">
+                        <div class="name"><?php echo $row['name']?></div>
+                        <div class="flex">
+                            <div class="price"> <?php echo $row['price']?><span>฿</span></div>
+                            <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                        </div>
+                        <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+                    </form>
+                    <?php } ?>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>  
+
+        <section class="home-products">
+            <h1 class="heading" >ยำ</h1>
+            <div id="yum" class="swiper products-slider ">
+                <div class="swiper-wrapper">
+                <?php
+                    $select = $db->prepare("SELECT * FROM `products` WHERE category = ?");
+                    $select->execute(['ยำ']);
+                    while($row = $select->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                   <form action="" method="post" class="swiper-slide slide">
+                        <input type="hidden" name="pid" value="<?php echo $row['pid'];?>">
+                        <input type="hidden" name="name" value="<?php echo $row['name'];?>">
+                        <input type="hidden" name="price" value="<?php echo $row['price'];?>">
+                        <input type="hidden" name="image" value="<?php echo $row['image'];?>">
+                        <img src="assets/image/menu/<?php echo $row['image']?>" alt="">
+                        <div class="name"><?php echo $row['name']?></div>
+                        <div class="flex">
+                            <div class="price"> <?php echo $row['price']?><span>฿</span></div>
+                            <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+                        </div>
+                        <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+                    </form>
+                    <?php } ?>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>  
+
+        <section class="home-products">
+            <h1 class="heading" >เกาเหลา</h1>
+            <div id="เกาเหลา" class="swiper products-slider ">
+                <div class="swiper-wrapper">
+                <?php
+                    $select = $db->prepare("SELECT * FROM `products` WHERE category = ?");
+                    $select->execute(['เกาเหลา']);
+                    while($row = $select->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                   <form action="" method="post" class="swiper-slide slide">
+                        <input type="hidden" name="pid" value="<?php echo $row['pid'];?>">
+                        <input type="hidden" name="name" value="<?php echo $row['name'];?>">
+                        <input type="hidden" name="price" value="<?php echo $row['price'];?>">
+                        <input type="hidden" name="image" value="<?php echo $row['image'];?>">
                         <img src="assets/image/menu/<?php echo $row['image']?>" alt="">
                         <div class="name"><?php echo $row['name']?></div>
                         <div class="flex">

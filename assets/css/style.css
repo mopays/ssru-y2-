@@ -699,7 +699,72 @@ html{
 .footer .credit span{
     color:rgb(60, 141, 233);
 }
-
+.display-orders{
+    text-align: center;
+}
+.display-orders p{
+    display: inline-block;
+    padding: 1rem 2rem;
+    margin: .5rem;
+    font-size: 2rem;
+    text-align: center;
+    border: 1px solid #000;
+    background-color: rgb(0, 0, 0);
+    box-shadow:#000;
+    border-radius: .5rem;
+    color:rgb(0, 0, 0);
+}
+.display-orders p span{
+    color:red;
+}
+.display-orders .grand-total{
+    margin-top: 2rem;
+    font-size: 2.5rem;
+    color: rgb(255, 0, 0);
+}
+.display-orders .grand-total span{
+    color:red;
+}
+.checkout-order form{
+    padding: 2rem;
+    border: 1px solid #000;
+    background-color: rgb(0, 0, 0);
+    box-shadow: #000;
+    border-radius: .5rem;
+}
+.checkout-order form h3{
+    border-radius: .5rem;
+    background-color: #0000;
+    color: rgb(0, 0, 0);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+.checkout-order form .flex{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: space-between;
+}
+.checkout-order form .flex .inputBox{
+    width: 49%;
+}
+.checkout-order form .flex .inputBox .box{
+    width: 90%;
+    border: 1px solid #000;
+    border-radius: .5rem;
+    padding: 1.2rem 1.4rem;
+    font-size: 2rem;
+    color: #0000;
+    margin: 1rem 0;
+    background-color: rgb(0, 0, 0);
+}
+.checkout-order form .flex .inputBox span{
+    font-size: 1.8rem;
+    color: rgb(0, 0, 0);
+}
 
 
 
@@ -717,8 +782,8 @@ html{
         top: 0;
         bottom: 0;
         left: 0;
-        right: 0;
-        width: 64.4% ;
+        right: 0;  
+        width: 54.4%;
         height: 60rem;
         background: rgba(8, 8, 8, 0.365);
     }
@@ -807,6 +872,9 @@ html{
         width: auto;
         height: 40rem;
       } 
+      .checkout-order form .flex .inputBox{
+        width: 100%;
+    }
 }
 @media (max-width:450px){
     html{

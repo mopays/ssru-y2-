@@ -1,5 +1,11 @@
 <?php 
     require_once('assets/config/connect.php');
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location:index.php');
+    }
+    $id = $_SESSION['user'];
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +23,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
   
-    <title>Document</title>
+    <title>Order</title>
 </head>
 <body>
 
@@ -40,19 +46,32 @@
         <h1 class="heading">placed orders</h1>
         <div class="box-container">
             
-
-            <div class="box">
-                <p>place on : <span></span></p>
-                <p>name : <span></span></p>
-                <p>number : <span></span></p>
-                <p>email : <span>/span></p>
-                <p>address : <span></span></p>
-                <p>payment method : <span></span></p>
-                <p>your orders:<span></span></p>
-                <p>total price : <span> ฿</span></p>
-                <p>payment status : <span style="color:<?php if($fetch_order['payment_status'] == 'pending'){echo 'red';}else{echo 'green';}?>;"></span></p>
-            </div>
-
+    <form action="" method="post">
+        <?php
+            $select_order = $db->prepare("SELECT * FROM `orders`WHERE user_id = ?");
+            $select_order->execute([$id]);
+            if($select_order->rowCount() > 0){
+                while($row = $select_order->fetch(PDO::FETCH_ASSOC)){
+        ?>
+        <div class="box">
+            <p >place on : <span><?php echo $row['place_on']?></span></p>
+            <p>name : <span><?php echo $row['name']?></span></p>
+            <p>number : <span><?php echo $row['number']?></span></p>
+            <p>email : <span><?php echo $row['email']?></span></p>
+            <p>address : <span><?php echo $row['address']?></span></p>
+            <p>payment method : <span><?php echo $row['method']?></span></p>
+            <p>your orders :<span> <?php echo $row['total_products']?></span></p>
+            <p>total price : <span><?php echo $row['total_price']?> ฿</span></p>
+            <p>payment status :<span style="color:<?php if($row['payment_status'] == 'pending'){echo 'red';}else{echo 'green';}?>;"> <?php echo $row['payment_status']?></span></p>
+        </div>
+                <?php 
+                }
+                }else{
+                     echo "<p style='text-align:center;color:red;font-size:4rem;'>no product add</p>";
+                }
+                
+                ?>
+    </form>
           
         </div>
     </section>

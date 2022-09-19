@@ -2,6 +2,6 @@
 
     session_start();
     session_destroy();
-    header('locaiotn:index.php');
+    header('location:index.php');
 
 ?>

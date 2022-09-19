@@ -1,9 +1,11 @@
 <?php
     require_once('assets/config/connect.php');
+    session_start();
+
     
     if(isset($_POST['login'])){
         $username = $_POST['username'];
-        $email = $_POST['username'];
+        $email = $_POST['email'];
         $password = md5($_POST['password']);
 
         if(empty($username)){
@@ -11,13 +13,14 @@
         }else if(empty($password)){
             $error[] = 'please enter password';
         }else{
-            $select = $db->prepare("SELECT * FROM `login` WHERE username = ? OR email = ? OR password = ?");
-            $select->execute([$username, $email, $password]);
+            $select = $db->prepare("SELECT * FROM `login` WHERE username = ? OR email = ? ");
+            $select->execute([$username, $email]);
             $row =  $select->fetch(PDO::FETCH_ASSOC);
 
-            if($username == $row['username'] OR $username  == $row['email']){
+            if($username == $row['username'] OR $email == $row['email']){
                 if($password ==  $row['password']){
-                    header('refresh:1;index.php');
+                    $_SESSION['user'] = $row['id'];
+                    header('refresh:1;home.php');
                     $loginMsg = 'ล็อกอินสำเร็จกำลังเข้าสู่ระบบ โปรดรอซักครู่';
                 }else{
                     $error[] = 'รหัสผ่านไม่ถูกต้องโปรดลองอีกครั้ง';
